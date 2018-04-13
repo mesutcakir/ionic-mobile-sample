@@ -1,0 +1,8 @@
+{
+  "name": "mobile-test",
+  "app_id": "cd21bedb",
+  "type": "ionic-angular",
+  "integrations": {
+    "cordova": {}
+  }
+}
