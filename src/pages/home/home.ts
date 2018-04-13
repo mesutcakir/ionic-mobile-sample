@@ -9,15 +9,18 @@ import { Geolocation } from '@ionic-native/geolocation';
 export class HomePage {
   test:string="veri yok";
   constructor(public navCtrl: NavController,private geolocation: Geolocation) {
-	this.test="Started";
- 		console.log(this.test)
+
   this.geolocation.getCurrentPosition().then((x) => {
-		this.test=JSON.stringify(x.coords);
- 		console.log(this.test)
+	this.test=JSON.stringify(x.coords);
 }).catch((error) => {
   console.log('Error getting location', error);
 });
 
+
+  	let watch = this.geolocation.watchPosition();
+	watch.subscribe((x) => {
+ 		this.test=JSON.stringify(x.coords);
+	});
   }
 
 
