@@ -3,25 +3,24 @@ import { NavController } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
 
 @Component({
-  selector: 'page-home',
-  templateUrl: 'home.html'
+selector: 'page-home',
+templateUrl: 'home.html'
 })
 export class HomePage {
-  test:string="veri yok";
-  constructor(public navCtrl: NavController,private geolocation: Geolocation) {
+test:string="veri yok";
+constructor(public navCtrl: NavController,private geolocation: Geolocation) {
+this.test="ctor içine girdi";
+}
 
-  this.geolocation.getCurrentPosition().then((x) => {
-	this.test=JSON.stringify(x.coords);
+this.geolocation.getCurrentPosition().then((position) => {
+this.test="Konum:"+position.coords.longitude + ' ' + position.coords.latitude
 }).catch((error) => {
-  console.log('Error getting location', error);
+console.log('Error getting location', error);
 });
 
 
-  	let watch = this.geolocation.watchPosition();
-	watch.subscribe((x) => {
- 		this.test=JSON.stringify(x.coords);
-	});
-  }
-
-
+let watch = this.geolocation.watchPosition();
+watch.subscribe((position) => {
+this.test="Konum:"+position.coords.longitude + ' ' + position.coords.latitude
+});
 }
