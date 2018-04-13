@@ -10,7 +10,7 @@ export class HomePage {
 test:string="veri yok";
 constructor(public navCtrl: NavController,private geolocation: Geolocation) {
 this.test="ctor içine girdi";
-}
+
 
 this.geolocation.getCurrentPosition().then((position) => {
 this.test="Konum:"+position.coords.longitude + ' ' + position.coords.latitude
@@ -23,4 +23,9 @@ let watch = this.geolocation.watchPosition();
 watch.subscribe((position) => {
 this.test="Konum:"+position.coords.longitude + ' ' + position.coords.latitude
 });
+
+
+}
+
+
 }
