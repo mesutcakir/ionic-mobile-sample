@@ -1,42 +1,48 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
-import { LaunchNavigator } from '@ionic-native/launch-navigator';
+import { LaunchNavigator, LaunchNavigatorOptions } from '@ionic-native/launch-navigator';
+import { Storage } from '@ionic/storage';
 
 @Component({
-selector: 'page-home',
-templateUrl: 'home.html'
+  selector: 'page-home',
+  templateUrl: 'home.html'
 })
 export class HomePage {
-test:any=[];
-constructor(public navCtrl: NavController,private geolocation: Geolocation,private launchNavigator: LaunchNavigator) {
-this.geolocation.getCurrentPosition().then((position) => {
-this.test.push("Konum:"+position.coords.longitude + ' ' + position.coords.latitude)
-}).catch((error) => {
-this.test.push("error:"+error)
-});
+  test: any = [];
+  add(typ: string, str: string) {
+    let dt = new Date();
+    this.test.push(dt.toISOString() + " | " + typ + ':' + str);
+    this.storage.set('test', JSON.stringify(this.test));
+  };
+  constructor(public navCtrl: NavController, private geolocation: Geolocation, private launchNavigator: LaunchNavigator, private storage: Storage) {
+    let options: LaunchNavigatorOptions = {
+      start: 'İstanbul, ON',
+      app: launchNavigator.APP.GOOGLE_MAPS
+    };
+    this.launchNavigator.navigate("İstanbul,ON", options)
+      .then(
+        success => console.log('Launched navigator'),
+        error => console.log('Error launching navigator', error)
+    );
+    
+    let watch = this.geolocation.watchPosition();
+    watch.subscribe((position) => {
+      if (position) {
+        this.add('watch', position.coords.longitude + ' ' + position.coords.latitude);
+        this.launchNavigator.navigate(position.coords.longitude + ',' + position.coords.latitude, options)
+          .then(
+            success => console.log('Launched navigator'),
+            error => console.log('Error launching navigator', error)
+          );
+      } else {
+        this.add("info", "Konum Servisi Kapalı olabilir.");
+      }
+    });
 
 
-let watch = this.geolocation.watchPosition();
-watch.subscribe((position) => {
-if (position){
-	this.test.push("Konum:"+position.coords.longitude + ' ' + position.coords.latitude)
-}
-else{
-	this.test.push("Konum Servisi Kapalı olabilir.")
-}
 
-});
-
-
-
-this.launchNavigator.navigate('Toronto, ON', {})
-  .then(
-    success => console.log('Launched navigator'),
-    error => console.log('Error launching navigator', error)
-  );
-
-}
+  }
 
 
 }
