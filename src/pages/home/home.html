@@ -8,8 +8,10 @@
 
 <ion-content padding>
 
- <div #map id="map"></div> 
- 
+<agm-map [latitude]="lat" [longitude]="lng">
+  <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+</agm-map>
+
 <ul>
 	<li *ngFor="let x of test"> {{x}}</li>
 </ul>

@@ -3,15 +3,14 @@ import { NavController } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
 //import { LaunchNavigator, LaunchNavigatorOptions } from '@ionic-native/launch-navigator';
 import { Storage } from '@ionic/storage';
-import { Component, ViewChild, ElementRef } from '@angular/core';
 
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
 })
 export class HomePage {
-  @ViewChild('map') mapElement: ElementRef;
-  map: any;
+  lat: number = 51.678418;
+  lng: number = 7.809007;
   test: any = [];
   add(typ: string, str: string) {
     let dt = new Date();
@@ -31,11 +30,22 @@ export class HomePage {
         //error => console.log('Error launching navigator', error)
     //);
     
+this.geolocation.getCurrentPosition().then((resp) => {
+
+
+ this.add('current', resp.coords.longitude + ' ' + resp.coords.latitude);
+		this.lat=resp.coords.latitude;
+		this.lng=resp.coords.longitude;
+}).catch((error) => {
+  console.log('Error getting location', error);
+})
+
     let watch = this.geolocation.watchPosition();
     watch.subscribe((position) => {
       if (position) {
+      this.lat=position.coords.latitude;
+		this.lng=position.coords.longitude;
         this.add('watch', position.coords.longitude + ' ' + position.coords.latitude);
-        this.map.setCenter({lat:position.coords.latitude, lng:position.coords.longitude});
         //this.launchNavigator.navigate(position.coords.longitude + ',' + position.coords.latitude, options)
           //.then(
             //success => console.log('Launched navigator'),
@@ -45,36 +55,5 @@ export class HomePage {
         this.add("info", "Konum Servisi Kapalı olabilir.");
       }
     });
-
-
-
   }
-  ionViewDidLoad(){
-    this.loadMap();
-  }
- 
-  loadMap(){
-
- 
-this.geolocation.getCurrentPosition().then((resp) => {
-
-
- this.add('watch', resp.coords.longitude + ' ' + resp.coords.latitude);
- let latLng = new google.maps.LatLng(resp.coords.latitude, resp.coords.longitude);
- 
-    let mapOptions = {
-      center: latLng,
-      zoom: 15,
-      mapTypeId: google.maps.MapTypeId.ROADMAP
-    }
- 
-    this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
- 
-}).catch((error) => {
-  console.log('Error getting location', error);
-})
-    
-  }
-
-
 }
