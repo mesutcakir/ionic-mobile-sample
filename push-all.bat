@@ -1,0 +1,1 @@
+git add . && git commit -m "Fix sample" && git push
