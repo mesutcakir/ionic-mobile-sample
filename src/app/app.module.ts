@@ -8,6 +8,8 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { AdMobFree } from '@ionic-native/admob-free';
 import { MyErrorHandler } from "./app.errorHandler";
+import { GoogleAnalytics } from '@ionic-native/google-analytics';
+
 
 @NgModule({
   declarations: [
@@ -27,6 +29,7 @@ import { MyErrorHandler } from "./app.errorHandler";
     StatusBar,
     SplashScreen,
     AdMobFree,
+    GoogleAnalytics,
     IonicErrorHandler,
     [{ provide: ErrorHandler, useClass: MyErrorHandler }]
   ]
