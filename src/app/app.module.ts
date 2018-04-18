@@ -16,7 +16,7 @@ import { AdMobFree } from '@ionic-native/admob-free';
 import { Pro } from '@ionic/pro';
 
 Pro.init('cd21bedb', {
-  appVersion: 'APP_VERSION'
+  appVersion: '0.0.1'
 });
 
 @Injectable()
