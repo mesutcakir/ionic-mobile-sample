@@ -11,6 +11,7 @@ import { Geolocation } from '@ionic-native/geolocation';
 import { IonicStorageModule } from '@ionic/storage';
 
 import { AgmCoreModule } from '@agm/core';
+import { AdMobPro } from '@ionic-native/admob-pro';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { AgmCoreModule } from '@agm/core';
     StatusBar,
     SplashScreen,
     Geolocation,
+    AdMobPro,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

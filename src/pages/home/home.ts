@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
 import { Storage } from '@ionic/storage';
+import { AdMobPro } from '@ionic-native/admob-pro';
+import { Platform } from 'ionic-angular';
 
 @Component({
 selector: 'page-home',
@@ -17,8 +19,23 @@ this.test.push(dt.toISOString() + " | " + typ + ':' + str);
 this.storage.set('test', JSON.stringify(this.test));
 };
 constructor(public navCtrl: NavController,public geolocation: Geolocation,
-public storage: Storage) { }
+public storage: Storage,private admob: AdMobPro, private platform: Platform) { 
+
+}
+
+
 ionViewDidLoad() {
+
+ 
+  this.admob.onAdDismiss()
+    .subscribe(() => { console.log('User dismissed ad'); });
+
+  let adId='ca-app-pub-7691889669897119~3610391116';
+  //let adId="ca-app-pub-7691889669897119/1466485648";
+  this.admob.prepareInterstitial({adId: adId,isTesting:true})
+    .then(() => { this.admob.showInterstitial(); });
+
+
 let watch = this.geolocation.watchPosition();
 this.geolocation.getCurrentPosition().then((resp) => {
 if (resp && resp.coords){
