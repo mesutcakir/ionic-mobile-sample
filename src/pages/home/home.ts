@@ -17,24 +17,21 @@ export class HomePage {
       id: "ca-app-pub-7691889669897119/7510818119"
     };
 
-
       this.ga.startTrackerWithId('UA-117874259-1')
         .then(() => {
-this.ga.trackEvent('Launch', 'Start');
-this.ga.trackView();
 		this.sample();
         })
         .catch(e => Pro.monitoring.exception(e)); 
   }
   sample() {
+this.ga.trackView("test2.html");
+this.ga.trackView();
     this.admobFree.banner.config(this.config);
     this.sampleResult = "Reklam Yükleniyor..";
     this.admobFree.banner.prepare().then(() => {
       setTimeout(() => {
         this.sampleResult = "banner showing";
         this.admobFree.banner.show();
-this.ga.trackEvent('Launch', 'Start1');
-this.ga.trackView();
       }, 1000);
     }).catch(e => {
       Pro.monitoring.exception(e);
