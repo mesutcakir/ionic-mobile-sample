@@ -3,6 +3,7 @@ import { NavController } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
 import { Storage } from '@ionic/storage';
 import { AdMobFree, AdMobFreeBannerConfig } from '@ionic-native/admob-free';
+import { Pro } from '@ionic/pro';
 
 @Component({
   selector: 'page-home',
@@ -24,13 +25,13 @@ export class HomePage {
   };
   constructor(public navCtrl: NavController, public geolocation: Geolocation, public storage: Storage, public admobFree: AdMobFree) {
     this.admobFree.banner.config(this.bannerConfig);
-
+    Pro.monitoring.log('constructor:' + new Date(), { level: 'error' });
   }
 
 
 
   ionViewDidLoad() {
-
+    Pro.monitoring.log('This happens sometimes', { level: 'error' })
 
     this.admobFree.banner.prepare()
       .then(() => {
