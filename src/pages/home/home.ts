@@ -12,23 +12,25 @@ export class HomePage {
   constructor(public admobFree: AdMobFree) {
     this.config = {
       isTesting: false,
-      autoShow: true,
+      autoShow: false,
       id: "ca-app-pub-7691889669897119/7510818119"
     };
-    this.sample();
+    setTimeout(this.sample, 1000);
   }
   sample() {
     this.admobFree.banner.config(this.config);
     this.sampleResult = "Reklam Yükleniyor..";
     this.admobFree.banner.prepare().then(() => {
-      this.sampleResult = "banner showing";
-      this.admobFree.banner.show();
+      setTimeout(() => {
+        this.sampleResult = "banner showing";
+        this.admobFree.banner.show();
+      }, 1000);
     }).catch(e => {
       Pro.monitoring.exception(e);
       this.sampleResult = JSON.stringify(e);
     });
   }
   ionViewDidLoad() {
-    this.sample();
+    setTimeout(this.sample, 1000);
   }
 }
