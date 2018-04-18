@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AdMobFree, AdMobFreeBannerConfig } from '@ionic-native/admob-free';
+import { AdMobFree } from '@ionic-native/admob-free';
 import { Pro } from '@ionic/pro';
 
 @Component({
@@ -7,18 +7,28 @@ import { Pro } from '@ionic/pro';
   templateUrl: 'home.html'
 })
 export class HomePage {
-  bannerConfig: AdMobFreeBannerConfig = {
-    isTesting: true,
-    autoShow: true,
-    bannerAtTop: true,
-    id: "ca-app-pub-7691889669897119/7510818119"
-  };
+  sampleResult:string;
+  id:string;
   constructor(public admobFree: AdMobFree) {
-    this.admobFree.banner.config(this.bannerConfig);
+    this.id = "ca-app-pub-7691889669897119/7510818119";
+    this.sample();
+  }
+  sample() {
+    this.admobFree.banner.config({
+      isTesting: true,
+      autoShow: true,
+      bannerAtTop: true,
+      id: this.id
+    });
+    this.sampleResult = "Reklam Yükleniyor..";
+    this.admobFree.banner.prepare().then(() => {
+      this.sampleResult = "banner showing";
+    }).catch(e => {
+      Pro.monitoring.exception(e);
+      this.sampleResult = JSON.stringify(e);
+    });
   }
   ionViewDidLoad() {
-    this.admobFree.banner.prepare().then(() => {
-      console.log("banner showing");
-    }).catch(e => Pro.monitoring.exception(e));
+    this.sample();
   }
 }
