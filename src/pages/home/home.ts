@@ -16,6 +16,14 @@ export class HomePage {
       autoShow: false,
       id: "ca-app-pub-7691889669897119/7510818119"
     };
+
+
+      this.ga.startTrackerWithId('UA-117874259-1')
+        .then(() => {
+     		this.ga.trackView('started');
+		this.sample();
+        })
+        .catch(e => Pro.monitoring.exception(e)); 
   }
   sample() {
     this.admobFree.banner.config(this.config);
@@ -24,21 +32,11 @@ export class HomePage {
       setTimeout(() => {
         this.sampleResult = "banner showing";
         this.admobFree.banner.show();
+        this.ga.trackView('banner_show');
       }, 1000);
     }).catch(e => {
       Pro.monitoring.exception(e);
       this.sampleResult = JSON.stringify(e);
     });
-  }
-initializeApp() {
-   setTimeout(this.sample, 1000);
-      this.ga.startTrackerWithId('UA-117874259-1')
-        .then(() => {
-          console.log('Google analytics is ready now');
-
-          this.ga.debugMode();
-          this.ga.setAllowIDFACollection(true);
-        })
-        .catch(e => console.log('Error starting GoogleAnalytics', e)); 
   }
 }
