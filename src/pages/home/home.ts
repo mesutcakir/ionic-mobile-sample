@@ -20,7 +20,8 @@ export class HomePage {
 
       this.ga.startTrackerWithId('UA-117874259-1')
         .then(() => {
-     		this.ga.trackView('started');
+this.ga.trackEvent('Launch', 'Start');
+this.ga.trackView();
 		this.sample();
         })
         .catch(e => Pro.monitoring.exception(e)); 
@@ -32,7 +33,8 @@ export class HomePage {
       setTimeout(() => {
         this.sampleResult = "banner showing";
         this.admobFree.banner.show();
-        this.ga.trackView('banner_show');
+this.ga.trackEvent('Launch', 'Start1');
+this.ga.trackView();
       }, 1000);
     }).catch(e => {
       Pro.monitoring.exception(e);
