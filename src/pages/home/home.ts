@@ -25,7 +25,7 @@ export class HomePage {
   }
   sample() {
 	this.ga.trackView("test2.html");
-this.ga.trackEvent("category", "action", "label", "value", 1)
+this.ga.trackEvent("category", "action", "label", 1, 1)
     this.admobFree.banner.config(this.config);
     this.sampleResult = "Reklam Yükleniyor..";
     this.admobFree.banner.prepare().then(() => {
