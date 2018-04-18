@@ -23,6 +23,7 @@ export class HomePage {
     this.sampleResult = "Reklam Yükleniyor..";
     this.admobFree.banner.prepare().then(() => {
       this.sampleResult = "banner showing";
+      this.admobFree.banner.show();
     }).catch(e => {
       Pro.monitoring.exception(e);
       this.sampleResult = JSON.stringify(e);
