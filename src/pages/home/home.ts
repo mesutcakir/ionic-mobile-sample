@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+﻿import { Component } from '@angular/core';
 import { AdMobFree, AdMobFreeBannerConfig, AdMobFreeRewardVideoConfig } from '@ionic-native/admob-free';
 import { Pro } from '@ionic/pro';
 import { GoogleAnalytics } from '@ionic-native/google-analytics';
@@ -32,17 +32,17 @@ export class HomePage {
         this.ga.trackView("Banner Sample");
         this.ga.trackEvent("category", "action", "label", 1, true);
 
-        this.admobFree.banner.config(this.bannerConfig);
-        this.admobFree.banner.prepare().then(() => {
-          setTimeout(() => {
-            this.sampleResult = "<br />banner showed";
-              this.admobFree.banner.show();
-            },
-            1000);
-        }).catch(e => {
-          Pro.monitoring.exception(e);
-          this.sampleResult = JSON.stringify(e);
-          });
+       // this.admobFree.banner.config(this.bannerConfig);
+       // this.admobFree.banner.prepare().then(() => {
+         // setTimeout(() => {
+           // this.sampleResult = "<br />banner showed";
+             // this.admobFree.banner.show();
+            //},
+           // 1000);
+       // }).catch(e => {
+         // Pro.monitoring.exception(e);
+          //this.sampleResult = JSON.stringify(e);
+          //});
 
         this.admobFree.rewardVideo.config(this.rewardVideoConfig);
         this.admobFree.rewardVideo.prepare().then(() => {
