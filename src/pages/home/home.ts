@@ -1,5 +1,5 @@
-﻿import { Component } from '@angular/core';
-import { AdMobFree, AdMobFreeBannerConfig } from '@ionic-native/admob-free';
+import { Component } from '@angular/core';
+import { AdMobFree, AdMobFreeBannerConfig, AdMobFreeRewardVideoConfig } from '@ionic-native/admob-free';
 import { Pro } from '@ionic/pro';
 import { GoogleAnalytics } from '@ionic-native/google-analytics';
 
@@ -9,33 +9,55 @@ import { GoogleAnalytics } from '@ionic-native/google-analytics';
 })
 export class HomePage {
   sampleResult: string;
-  config: AdMobFreeBannerConfig;
-  constructor(public admobFree: AdMobFree,private ga: GoogleAnalytics) {
-    this.config = {
+  bannerConfig: AdMobFreeBannerConfig;
+  rewardVideoConfig:AdMobFreeRewardVideoConfig;
+  constructor(public admobFree: AdMobFree, private ga: GoogleAnalytics) {
+    this.bannerConfig = {
       isTesting: false,
       autoShow: false,
       id: "ca-app-pub-7691889669897119/7510818119"
     };
 
-      this.ga.startTrackerWithId('UA-117874259-1')
-        .then(() => {
-		this.sample();
-        })
-        .catch(e => Pro.monitoring.exception(e)); 
+    this.rewardVideoConfig = {
+      isTesting: false,
+      autoShow: false,
+      id: "ca-app-pub-7691889669897119~3610391116"
+    };
   }
   sample() {
-	this.ga.trackView("test2.html");
-this.ga.trackEvent("category", "action", "label", 1, true)
-    this.admobFree.banner.config(this.config);
-    this.sampleResult = "Reklam Yükleniyor..";
-    this.admobFree.banner.prepare().then(() => {
-      setTimeout(() => {
-        this.sampleResult = "banner showing";
-        this.admobFree.banner.show();
-      }, 1000);
-    }).catch(e => {
-      Pro.monitoring.exception(e);
-      this.sampleResult = JSON.stringify(e);
-    });
+    this.ga.startTrackerWithId('UA-117874259-1')
+      .then(() => {
+        this.sampleResult = "Reklam Yükleniyor..";
+
+        this.ga.trackView("Banner Sample");
+        this.ga.trackEvent("category", "action", "label", 1, true);
+
+        this.admobFree.banner.config(this.bannerConfig);
+        this.admobFree.banner.prepare().then(() => {
+          setTimeout(() => {
+            this.sampleResult = "<br />banner showed";
+              this.admobFree.banner.show();
+            },
+            1000);
+        }).catch(e => {
+          Pro.monitoring.exception(e);
+          this.sampleResult = JSON.stringify(e);
+          });
+
+        this.admobFree.rewardVideo.config(this.rewardVideoConfig);
+        this.admobFree.rewardVideo.prepare().then(() => {
+          setTimeout(() => {
+            this.sampleResult += "<br />rewardVideo showed";
+              this.admobFree.rewardVideo.show();
+            },
+            1000);
+        }).catch(e => {
+          Pro.monitoring.exception(e);
+          this.sampleResult = JSON.stringify(e);
+        });
+
+      })
+      .catch(e => Pro.monitoring.exception(e));
+
   }
 }
