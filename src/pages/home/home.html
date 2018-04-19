@@ -7,8 +7,14 @@
 </ion-header>
 
 <ion-content padding>
-  <label> <input type="checkbox" [(ngModel)]="config.isTesting" placeholder="isTesting" /> Test ?</label><br/>
-  <input type="text" [(ngModel)]="config.id" placeholder="id" style="width: 100%;" /><br />
-  <button ion-button (click)="sample()">Test</button>
+  <h3>Banner</h3>
+  <label> <input type="checkbox" [(ngModel)]="bannerConfig.isTesting" placeholder="isTesting" /> Banner IsTest ?</label><br />
+  <input type="text" [(ngModel)]="bannerConfig.id" placeholder="Banner Id" style="width: 100%;" /><br />
+  <h3>Video</h3>
+  <label> <input type="checkbox" [(ngModel)]="rewardVideoConfig.isTesting" placeholder="isTesting" /> Video IsTest ?</label><br />
+  <input type="text" [(ngModel)]="rewardVideoConfig.id" placeholder="rewardVideoConfig Id" style="width: 100%;" /><br />
+
+  <button ion-button (click)="sample()">Test'i Başlat</button>
+
   <p>{{sampleResult}}</p>
 </ion-content>

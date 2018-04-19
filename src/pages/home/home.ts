@@ -19,9 +19,9 @@ export class HomePage {
     };
 
     this.rewardVideoConfig = {
-      isTesting: false,
       autoShow: false,
-      id: "ca-app-pub-7691889669897119~3610391116"
+      id: "ca-app-pub-7691889669897119~3610391116",
+      isTesting:false
     };
   }
   sample() {
